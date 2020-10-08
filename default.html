@@ -1,0 +1,104 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="UTF-8">  
+    <title>joe's hotdogs</title>  
+</head>
+    
+<body style="background-color:DFD7C3; font-famiky: didot; margin-left: 30px;">
+
+    <center><h1 style = "font-family: didot">JOE'S HOTDOG STAND</h1></center>
+    <center><i>welcome! newly established, our cafe offers three items in incredbily low prices: hotdogs, french fries, and drinks! some orders may qualify for discounts. click the button to order and get started!</i></center>
+
+    <br><br>
+    <center>
+    <button style = "background-color: #86ae72; 
+                     font-family: didot; 
+                     padding: 5px 18px; 
+                     border-color:#657c5a;" 
+            onclick= "calculate_order()"> order now!</button></center>
+    
+    <h2 style = "font-family: didot; font-weight: 700">order reciept:</h2>
+
+    <p id="hotdog"></p>
+    <p id="fries"></p>
+    <p id="soda"></p>
+
+    <p style = "font-family:didot"> ——— calculations</p>
+    <p id="subtotal"></p>
+    <p style = "font-size: 12px;" id="mealtax"></p>
+    <p style = "font-weight: 700px; font-size: 18px;" id="total"></p>
+    
+    <!------------------------------------------
+    --------------------------------------------
+    --------------------------------------------
+    --------------------------------------------
+    --------------------------------------------
+    -------------------------------------------->
+    
+    <script>
+    
+    function calculate_order() {
+        var txt_hotdog, txt_fries, txt_soda, txt_subtotal, txt_discount, txt_total;
+        var subtotal, meal_tax, total; 
+        
+        var num_hotdog = prompt("How many hotdogs?", "");
+        var num_fries = prompt("How many fries?", "");
+        var num_soda = prompt("How many soda?", "");
+        
+        var sum_hotdog = num_hotdog * 3.25;
+        var sum_fries = num_fries * 2.00;
+        var sum_soda = num_soda * 1.50;
+        
+  
+        if (num_hotdog > 0) {
+            txt_hotdog = "ordered: " + num_hotdog + " hotdog(s) — total: $" + sum_hotdog.toFixed(2);
+        } else {
+            txt_hotdog = "no hotdogs were ordered.";
+        }
+        
+        if (num_fries > 0) {
+            txt_fries = "ordered: " + num_fries + " fries — total $" + sum_fries.toFixed(2);
+        } else {
+            txt_fries = "no fries were ordered.";
+        }
+                
+        if (num_soda > 0) {
+            txt_soda = "ordered: " + num_soda + " soda(s) — total $" + sum_soda.toFixed(2);
+        } else {
+            txt_soda = "no soda were ordered.";
+        }
+        
+        subtotal = sum_hotdog + sum_fries + sum_soda;    
+        if (subtotal >= 20) {
+            subtotal *= .9;
+            var rounded_subtotal = subtotal.toFixed(2);
+            txt_subtotal = "UNLOCKED: joe's special 10% discount! new subtotal — $" + rounded_subtotal;
+        }
+        else {
+            var rounded_subtotal = subtotal.toFixed(2);
+            txt_subtotal = "no discounts available. subtotal — is $" + rounded_subtotal;
+        }
+        
+        meal_tax = rounded_subtotal * 0.0625;
+        var rounded_mealtax = meal_tax.toFixed(2);
+        txt_meal_tax = "meal tax (6.25%) = $" + rounded_mealtax;
+        
+        var final_sub = parseFloat(rounded_subtotal);
+        var final_tax = parseFloat(rounded_mealtax);
+        
+        total = final_sub + final_tax;
+        txt_total = "order total = $" + total.toFixed(2);
+        
+        document.getElementById("hotdog").innerHTML = txt_hotdog;
+        document.getElementById("fries").innerHTML = txt_fries;
+        document.getElementById("soda").innerHTML = txt_soda;        
+        document.getElementById("subtotal").innerHTML = txt_subtotal;
+        document.getElementById("mealtax").innerHTML = txt_meal_tax;
+        document.getElementById("total").innerHTML = txt_total;
+    }
+
+    </script>
+
+</body>
+</html>
