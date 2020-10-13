@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+<head>
+    
+<meta charset = "utf-8">
+<title>lotto lotto</title>
+    
+</head>
+    
+<body style="background-color:DFD7C3; margin-left: 20px;">
+    
+    <center><h1 style = "font-family: didot">QUICK PICK LOTTERY</h1></center>
+    <center><i>welcome! to start our quick pick lottery, click the button below!</i></center>
+    
+
+
+        <br><br>
+        <center>
+        <button style = "background-color: #86ae72; 
+                        font-family: didot; 
+                         padding: 5px 18px; 
+                         border-color:#657c5a;" 
+                onclick= "start()"> START!</button></center>
+    
+    <br>
+    <p id="intro"></p>
+    <b><p style = "font-size: 18px;" id="holder"></p></b>
+    <p id="ranluck"></p>
+    <p style = "font-family:didot"> ——— </p>
+    <p id="intro2"></p>
+    <b><p style = "font-size: 18px;" id="holder2"></p></b>
+    <p id="luck_ball"></p>
+    <p style = "font-family:didot"> ——— </p>
+    <p id="payout"></p>
+
+    
+    <script>
+        
+     
+    function start() {
+        
+        var txt_intro, txt_intro2, txt_ranluck, txt_luckyball_num, txt_payout;
+        
+        /**************QUICK PICK: FIVE NUMBERS**************/
+        var qp_num = [];
+        while (qp_num.length < 5) {
+            var rNum = Math.floor(Math.random() * 48) + 1;
+            if (qp_num.indexOf(rNum) == -1) qp_num.push(rNum);
+        }
+        
+        qp_num.sort(function(a, b) {
+            return a-b;
+        });
+        
+
+        txt_intro = "your quick pick numbers are: ";
+        for(i = 0; i < 5; i++) {
+            holder.innerHTML += qp_num[i] + " ";
+        }
+
+        
+        /**************QUICK PICK: LUCKY BALL NUMBERS**************/
+        var qp_lucky = [];
+    
+        while (qp_lucky.length < 1) {
+            var random_luck = Math.floor(Math.random() * 18) + 1;
+            if (qp_lucky.indexOf(random_luck) == -1) qp_lucky.push(random_luck);
+        }
+        
+        txt_ranluck = "your quick pick lucky number is: " + qp_lucky[0];
+
+
+        /**************USER INPUT: FIVE NUMBERS**************/
+        winning_numbers = prompt("enter today's winning numbers separated by a space", "");
+        var user_num = winning_numbers.split(" ").map(Number);
+    
+        txt_intro2 = "today's winning numbers are: ";
+        for (i = 0; i < 5; i++) {
+            user_num[i] = parseInt(user_num[i]);
+            holder2.innerHTML += user_num[i] + " ";
+        }
+        
+        /**************USER INPUT: LUCKY NUMBER**************/
+        lucky_number = prompt("enter today's lucky ball number", "");
+        
+        var user_lucky = [];
+        user_lucky.push(parseInt(lucky_number));
+        txt_luckyball_num = "today's lucky ball number is: " + user_lucky[0];
+
+
+        
+        /**************PRIZE CALCULATION**************/
+        var lucky_win = false;
+        var total_match = 0;
+        var prize = "";
+         
+        for (i = 0; i < 5; i++) {
+            for (j = 0; j < 5; j++) {
+                if (qp_num[i] == user_num[j]) {
+                    total_match++;
+                }
+            }
+        }
+        
+        if (qp_lucky == user_lucky) lucky_win = true;
+        
+        /* LUCKY BALL MATCH */
+        if (lucky_win == true && total_match == 5) prize = "$7,000 a WEEK for LIFE!";
+        if (lucky_win == true && total_match == 4) prize = "$5,000";
+        if (lucky_win == true && total_match == 3) prize = "$150";
+        if (lucky_win == true && total_match == 2) prize = "$25";
+        if (lucky_win == true && total_match == 1) prize = "$6";
+        if (lucky_win == true && total_match == 0) prize = "$4";
+
+        /* LUCKY BALL DOES NOT MATCH */
+        if (lucky_win == false && total_match == 5) prize = "$25,000 a YEAR for LIFE!";
+        if (lucky_win == false && total_match == 4) prize = "$200";
+        if (lucky_win == false && total_match == 3) prize = "$20";
+        if (lucky_win == false && total_match == 2) prize = "$3";
+        if (lucky_win == false && total_match == 1) prize = "nothing. Try again next time!";
+        if (lucky_win == false && total_match == 0) prize = "nothing. Try again next time!";
+
+        txt_payout = "You won " + prize;
+        
+        /**************QUICK PICK: LUCKY BALL NUMBERS**************/
+        document.getElementById("intro").innerHTML = txt_intro;
+        document.getElementById("ranluck").innerHTML = txt_ranluck;
+        document.getElementById("intro2").innerHTML = txt_intro2;
+        document.getElementById("luck_ball").innerHTML = txt_luckyball_num;
+        document.getElementById("payout").innerHTML = txt_payout;        
+
+    
+    }
+
+    </script>
+</body>
+
+
+</html>
